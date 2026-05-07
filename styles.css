@@ -1,0 +1,499 @@
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', '微软雅黑', 'Helvetica Neue', sans-serif;
+  background: #FAF8F5;
+  color: #2A2D34;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+textarea { font-family: inherit; }
+
+:root {
+  --bg: #FAF8F5;
+  --surface: #FFFFFF;
+  --ink: #1E3A5F;        /* 主色 深墨蓝 */
+  --ink-soft: #4A6580;
+  --text: #2A2D34;
+  --text-soft: #6B7280;
+  --line: #E5E1DA;
+  --accent: #C97B5C;     /* 暖橙陶土，比朱红更现代 */
+  --accent-soft: #F4E4DC;
+  --yin: #C5BFB4;        /* 阴爻颜色（柔灰） */
+  --yang: #1E3A5F;       /* 阳爻颜色（墨蓝） */
+  --moving: #C97B5C;     /* 动爻强调 */
+  --shadow-sm: 0 2px 8px rgba(30, 58, 95, 0.06);
+  --shadow-md: 0 4px 24px rgba(30, 58, 95, 0.08);
+  --radius: 14px;
+}
+
+/* ========== Layout ========== */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.step {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.step.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Hero / Header ========== */
+.hero {
+  text-align: center;
+  margin: 24px 0 40px;
+}
+.pixel-coin {
+  width: 96px;
+  height: 96px;
+  display: block;
+  margin: 0 auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 4px 10px rgba(30, 58, 95, 0.18));
+}
+.brand-sub {
+  color: var(--text-soft);
+  margin: 18px 0 0;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* ========== Card ========== */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+textarea {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  resize: none;
+  background: #FCFBF9;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+textarea:focus {
+  border-color: var(--ink);
+}
+textarea::placeholder { color: #B5B0A6; }
+
+.char-count {
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+
+/* ========== Category buttons ========== */
+.cat-group {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.cat-btn {
+  padding: 10px 4px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-soft);
+  background: #FCFBF9;
+  transition: all 0.2s;
+}
+.cat-btn:hover {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+.cat-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* ========== Buttons ========== */
+.btn-primary {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 4px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.btn-primary:hover:not(:disabled) {
+  background: #2C4F7A;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(30, 58, 95, 0.25);
+}
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+.btn-primary:disabled {
+  background: #C5BFB4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  color: var(--text-soft);
+  font-size: 14px;
+  letter-spacing: 2px;
+  background: transparent;
+  transition: all 0.2s;
+}
+.btn-secondary:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-soft);
+  margin: 12px 0 0;
+}
+
+/* ========== Step 2: Throw ========== */
+.throw-top {
+  text-align: center;
+  margin: 16px 0 24px;
+}
+.line-counter {
+  font-family: 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* 卦象进度条（从下到上） */
+.lines-progress {
+  display: flex;
+  flex-direction: column-reverse; /* 第一爻在最下 */
+  gap: 6px;
+  margin: 20px auto 28px;
+  max-width: 240px;
+}
+.line-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 14px;
+  opacity: 0.3;
+  transition: opacity 0.4s;
+}
+.line-row.filled { opacity: 1; }
+.line-num {
+  width: 28px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+.line-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--line);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.line-row.filled.yang .line-bar { background: var(--yang); }
+.line-row.filled.yin .line-bar { background: transparent; }
+.line-row.filled.yin .line-bar::before,
+.line-row.filled.yin .line-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 42%;
+  height: 8px;
+  background: var(--yin);
+  border-radius: 4px;
+}
+.line-row.filled.yin .line-bar::before { left: 0; }
+.line-row.filled.yin .line-bar::after { right: 0; }
+.line-row.moving .line-bar { box-shadow: 0 0 0 2px var(--moving); }
+.line-mark {
+  width: 18px;
+  font-size: 11px;
+  color: transparent;
+  font-weight: 600;
+}
+.line-row.moving .line-mark { color: var(--moving); }
+
+/* ========== Coin animation ========== */
+.coin-stage {
+  text-align: center;
+  margin: 0 auto 24px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.coin-arena {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  perspective: 800px;
+  margin-bottom: 16px;
+  height: 96px;
+}
+.coin {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.coin-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 30% 30%, #F0E0C8 0%, #D4B98C 40%, #A88454 80%, #7A5C3A 100%);
+  border: 2px solid #8B6B47;
+  box-shadow:
+    inset 0 -3px 6px rgba(0, 0, 0, 0.15),
+    inset 0 3px 6px rgba(255, 255, 255, 0.3),
+    0 4px 8px rgba(122, 92, 58, 0.3);
+}
+.coin-back {
+  transform: rotateY(180deg);
+}
+.coin-mark {
+  font-family: 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #5A3E20;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.coin-hole {
+  width: 18px;
+  height: 18px;
+  background: #FAF8F5;
+  border: 2px solid #8B6B47;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* 正面（陽）= 三背 = 数字 3 */
+/* 反面（孔）= 字面 = 数字 2 */
+
+.coin.flip-back  { transform: rotateY(180deg); }
+.coin.flip-front { transform: rotateY(0deg); }
+
+/* 抛掷动画：上抛 + 不停翻转，最后落到 final-rot（0=正面/180=反面） */
+@keyframes coinTossA {
+  0%   { transform: translateY(0)     rotateY(0deg)    rotateX(0deg); }
+  20%  { transform: translateY(-90px) rotateY(360deg)  rotateX(20deg); }
+  40%  { transform: translateY(-130px) rotateY(720deg) rotateX(-20deg); }
+  60%  { transform: translateY(-100px) rotateY(1080deg) rotateX(20deg); }
+  80%  { transform: translateY(-40px)  rotateY(1440deg) rotateX(-10deg); }
+  100% { transform: translateY(0)     rotateY(calc(1800deg + var(--final-rot, 0deg))) rotateX(0deg); }
+}
+@keyframes coinTossB {
+  0%   { transform: translateY(0)      rotateY(0deg)    rotateX(0deg); }
+  20%  { transform: translateY(-110px) rotateY(360deg)  rotateX(-20deg); }
+  40%  { transform: translateY(-150px) rotateY(720deg)  rotateX(20deg); }
+  60%  { transform: translateY(-100px) rotateY(1080deg) rotateX(-20deg); }
+  80%  { transform: translateY(-50px)  rotateY(1440deg) rotateX(10deg); }
+  100% { transform: translateY(0)      rotateY(calc(1800deg + var(--final-rot, 0deg))) rotateX(0deg); }
+}
+@keyframes coinTossC {
+  0%   { transform: translateY(0)      rotateY(0deg)    rotateX(0deg); }
+  25%  { transform: translateY(-100px) rotateY(540deg)  rotateX(15deg); }
+  50%  { transform: translateY(-140px) rotateY(900deg)  rotateX(-15deg); }
+  75%  { transform: translateY(-70px)  rotateY(1260deg) rotateX(15deg); }
+  100% { transform: translateY(0)      rotateY(calc(1800deg + var(--final-rot, 0deg))) rotateX(0deg); }
+}
+
+.coin.tossing[data-i="0"] { animation: coinTossA 1.4s cubic-bezier(0.4, 0.1, 0.3, 1) forwards; }
+.coin.tossing[data-i="1"] { animation: coinTossB 1.5s cubic-bezier(0.4, 0.1, 0.3, 1) forwards; }
+.coin.tossing[data-i="2"] { animation: coinTossC 1.45s cubic-bezier(0.4, 0.1, 0.3, 1) forwards; }
+
+.throw-hint {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin: 8px 0 0;
+}
+
+/* ========== Step 3: Result ========== */
+.result-head {
+  text-align: center;
+  margin: 16px 0 28px;
+}
+.result-tag {
+  font-size: 13px;
+  color: var(--text-soft);
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.gua-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.gua-block {
+  flex: 1;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  max-width: 200px;
+}
+.gua-label {
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 3px;
+  margin: 0 0 12px;
+}
+.gua-lines {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.gua-line {
+  width: 100px;
+  height: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.gua-line.yang { background: var(--ink); border-radius: 4px; }
+.gua-line.yin::before, .gua-line.yin::after {
+  content: '';
+  width: 42%;
+  height: 100%;
+  background: var(--yin);
+  border-radius: 4px;
+}
+.gua-line.moving { box-shadow: 0 0 0 2px var(--moving); }
+.gua-name {
+  font-family: 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 6px 0 2px;
+}
+.gua-trigram {
+  font-size: 11px;
+  color: var(--text-soft);
+  margin: 0;
+  letter-spacing: 1px;
+}
+.gua-arrow {
+  font-size: 24px;
+  color: var(--text-soft);
+  flex-shrink: 0;
+}
+
+/* ========== Interpretation ========== */
+.interp-card {
+  padding: 24px 22px;
+}
+.interp-section { margin-bottom: 22px; }
+.interp-section:last-child { margin-bottom: 0; }
+.interp-h {
+  font-family: 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  font-size: 16px;
+  color: var(--ink);
+  margin: 0 0 10px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+  font-weight: 600;
+}
+.interp-text {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 0;
+}
+.change-item {
+  background: #FCF8F4;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.change-item:last-child { margin-bottom: 0; }
+.change-pos {
+  display: inline-block;
+  font-family: 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 480px) {
+  .container { padding: 20px 16px 60px; }
+  .pixel-coin { width: 80px; height: 80px; }
+  .card { padding: 20px 18px; }
+  .cat-group { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .cat-btn { font-size: 13px; padding: 10px 0; }
+  .coin { width: 64px; height: 64px; }
+  .coin-mark { font-size: 22px; }
+  .coin-hole { width: 14px; height: 14px; }
+  .coin-arena { gap: 18px; height: 80px; }
+  .gua-pair { gap: 8px; }
+  .gua-block { padding: 16px 10px; }
+  .gua-line { width: 80px; }
+  .gua-arrow { font-size: 20px; }
+  .gua-name { font-size: 19px; }
+}
+
+@media (min-width: 720px) {
+  .container { padding: 48px 24px 80px; }
+}
+
+/* ========== Misc ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

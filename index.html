@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF8F5">
+  <title>静观 · 六爻起卦</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+
+    <!-- ========== Step 1: 选类别 ========== -->
+    <section class="step active" id="step-input">
+      <header class="hero">
+        <svg class="pixel-coin" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-label="铜钱">
+          <g fill="#1E3A5F">
+            <rect x="3" y="0" width="5" height="1"/>
+            <rect x="2" y="1" width="1" height="1"/>
+            <rect x="8" y="1" width="1" height="1"/>
+            <rect x="1" y="2" width="1" height="2"/>
+            <rect x="9" y="2" width="1" height="2"/>
+            <rect x="0" y="4" width="1" height="3"/>
+            <rect x="10" y="4" width="1" height="3"/>
+            <rect x="1" y="7" width="1" height="2"/>
+            <rect x="9" y="7" width="1" height="2"/>
+            <rect x="2" y="9" width="1" height="1"/>
+            <rect x="8" y="9" width="1" height="1"/>
+            <rect x="3" y="10" width="5" height="1"/>
+          </g>
+          <g fill="#C97B5C">
+            <rect x="3" y="1" width="5" height="1"/>
+            <rect x="2" y="2" width="7" height="2"/>
+            <rect x="1" y="4" width="3" height="3"/>
+            <rect x="7" y="4" width="3" height="3"/>
+            <rect x="2" y="7" width="7" height="2"/>
+            <rect x="3" y="9" width="5" height="1"/>
+          </g>
+        </svg>
+        <p class="brand-sub">六爻起卦 · 静心问事</p>
+      </header>
+
+      <div class="card">
+        <label class="field-label">选择问题类别</label>
+        <div class="cat-group" id="cat-group">
+          <button class="cat-btn" data-cat="career">事业</button>
+          <button class="cat-btn" data-cat="love">感情</button>
+          <button class="cat-btn" data-cat="wealth">财运</button>
+          <button class="cat-btn" data-cat="health">健康</button>
+          <button class="cat-btn" data-cat="decision">抉择</button>
+        </div>
+
+        <button class="btn-primary" id="start-btn" disabled>开始起卦</button>
+        <p class="hint">起卦前请静心片刻，在心中默念所问之事</p>
+      </div>
+    </section>
+
+    <!-- ========== Step 2: 投掷 ========== -->
+    <section class="step" id="step-throw">
+      <div class="throw-top">
+        <p class="line-counter">第 <span id="line-num">1</span> / 6 爻</p>
+      </div>
+
+      <div class="lines-progress" id="lines-progress">
+        <!-- 6 条爻位（从下往上），由 JS 渲染 -->
+      </div>
+
+      <div class="coin-stage">
+        <div class="coin-arena" id="coin-arena">
+          <div class="coin" data-i="0">
+            <div class="coin-face coin-front"><span class="coin-mark">陽</span></div>
+            <div class="coin-face coin-back"><span class="coin-hole"></span></div>
+          </div>
+          <div class="coin" data-i="1">
+            <div class="coin-face coin-front"><span class="coin-mark">陽</span></div>
+            <div class="coin-face coin-back"><span class="coin-hole"></span></div>
+          </div>
+          <div class="coin" data-i="2">
+            <div class="coin-face coin-front"><span class="coin-mark">陽</span></div>
+            <div class="coin-face coin-back"><span class="coin-hole"></span></div>
+          </div>
+        </div>
+        <p class="throw-hint" id="throw-hint">点击下方按钮投掷三枚铜钱</p>
+      </div>
+
+      <button class="btn-primary" id="throw-btn">摇卦</button>
+    </section>
+
+    <!-- ========== Step 3: 结果 ========== -->
+    <section class="step" id="step-result">
+      <header class="result-head">
+        <p class="result-tag">所得卦象</p>
+      </header>
+
+      <div class="gua-pair">
+        <div class="gua-block">
+          <p class="gua-label">本卦</p>
+          <div class="gua-lines" id="ben-lines"></div>
+          <p class="gua-name" id="ben-name"></p>
+          <p class="gua-trigram" id="ben-trigram"></p>
+        </div>
+        <div class="gua-arrow" id="gua-arrow">→</div>
+        <div class="gua-block" id="bian-block">
+          <p class="gua-label">变卦</p>
+          <div class="gua-lines" id="bian-lines"></div>
+          <p class="gua-name" id="bian-name"></p>
+          <p class="gua-trigram" id="bian-trigram"></p>
+        </div>
+      </div>
+
+      <div class="card interp-card">
+        <div class="interp-section">
+          <h3 class="interp-h">卦象本意</h3>
+          <p id="interp-essence" class="interp-text"></p>
+        </div>
+
+        <div class="interp-section">
+          <h3 class="interp-h">针对你问的<span id="interp-cat-tag"></span></h3>
+          <p id="interp-category" class="interp-text"></p>
+        </div>
+
+        <div class="interp-section" id="interp-changes-section">
+          <h3 class="interp-h">动爻提示</h3>
+          <div id="interp-changes"></div>
+        </div>
+
+        <div class="interp-section" id="interp-bian-section">
+          <h3 class="interp-h">变卦走向</h3>
+          <p id="interp-bian" class="interp-text"></p>
+        </div>
+      </div>
+
+      <button class="btn-secondary" id="restart-btn">重新起卦</button>
+    </section>
+
+  </main>
+
+  <script src="gua-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
